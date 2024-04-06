@@ -1,0 +1,31 @@
+#given an array of n digits, that starts with 1 and ends with some number x between 1 and k, 
+#find the number of arrays formed with values between 1 and k
+#given that no 2 consecutive digits are equal. 
+#ex if n=4, k=3, x=2 the answer is 3
+# if n=5, k=3, x=2 the answer is 5
+# if n=5, k=4, x=2 the answer is 20
+#input:
+#int N : no of digits in array
+#int K: max value to be present in array
+#int X: value of ending index
+#where
+# 1<=N<=10^5
+# 1<=K<=10^5
+# 1<=X<=K
+
+
+def count_sequences(n, k, x):
+    # Initialize the dp table with zeros
+    dp = [[0 for _ in range(k+1)] for _ in range(n+1)]
+    # Base case: There's only one way to form a sequence of length 1 that starts with 1
+    dp[1][1] = 1
+    
+    # Fill dp table
+    for i in range(2, n+1):  # For each length of sequence
+        for j in range(1, k+1):  # For each possible ending digit
+            for l in range(1, k+1):  # For each possible previous digit
+                if l != j:  # Ensure no two consecutive digits are the same
+                    dp[i][j] += dp[i-1][l]
+    
+    # The answer is the number of ways to form a sequence of length n that ends with x
+    return dp[n][x]
