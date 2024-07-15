@@ -1,0 +1,10 @@
+# Kadane's Algorithm
+
+def maxSubArraySum(self,arr):
+        n = len(arr)
+        maxSum = arr[0]
+        Sum = arr[0]
+        for num in arr[1:]:
+            Sum = max(num, Sum + num)
+            maxSum = max(maxSum, Sum)
+        return maxSum
