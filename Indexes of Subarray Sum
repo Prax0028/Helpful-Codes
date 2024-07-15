@@ -1,0 +1,104 @@
+#Question
+#Given an unsorted array arr of size n that contains only non negative integers, find a sub-array (continuous elements) that has sum equal to s. 
+#You mainly need to return the left and right indexes(1-based indexing) of that subarray.
+#In case of multiple subarrays, return the subarray indexes which come first on moving from left to right. 
+#If no such subarray exists return an array consisting of element -1.
+#Expected Time Complexity: O(n)
+#Expected Auxiliary Space: O(1)
+#Constraints:
+#0 <= arr[i] <= 109
+#1 <= n <= 105
+#0 <= s <= 10
+
+#Added Note: Left and Right Indexes are included, and Left can be equal to Right ie subarry acn be of size 1
+
+#SLIDING WINDOW METHOD
+#Python
+def subArraySum(self,arr, n, s): 
+        current_sum = 0
+        start = 0
+        for end in range(start,n):
+            current_sum += arr[end]
+            
+            # If current_sum exceeds s, remove elements from the start of the window
+            while current_sum > s and start < end:
+                current_sum -= arr[start]
+                start += 1
+            
+            # Check if current_sum is equal to s
+            if current_sum == s:
+                return [start + 1, end + 1]  # +1 to convert from zero-indexed to one-indexed
+        
+        return [-1]  # If no subarray found, return [-1]
+
+
+#C
+int* subArraySum(int arr[], int n, int s) {
+    static int result[2];
+    int currentSum = 0;
+    int start = 0;
+    int end;
+    
+    for (end = 0; end < n; end++) {
+        currentSum += arr[end];
+        // If currentSum exceeds s, remove elements from the start of the window
+        while (currentSum > s && start < end) {
+            currentSum -= arr[start];
+            start++;
+        }
+        // Check if currentSum is equal to s
+        if (currentSum == s) {
+            result[0] = start + 1; // +1 to convert from zero-indexed to one-indexed
+            result[1] = end + 1;
+            return result;
+        }
+    }
+    result[0] = -1;
+    return result; // If no subarray found, return [-1]
+}
+
+
+#Java
+ public int[] subArraySum(int[] arr, int n, int s) {
+        int currentSum = 0;
+        int start = 0;
+        
+        for (int end = 0; end < n; end++) {
+            currentSum += arr[end];
+            // If currentSum exceeds s, remove elements from the start of the window
+            while (currentSum > s && start < end) {
+                currentSum -= arr[start];
+                start++;
+            }  
+            // Check if currentSum is equal to s
+            if (currentSum == s) {
+                return new int[]{start + 1, end + 1}; // +1 to convert from zero-indexed to one-indexed
+            }
+        }
+        return new int[]{-1}; // If no subarray found, return [-1]
+    }
+
+
+#C++
+vector<int> subArraySum(vector<int>& arr, int n, int s) {
+    vector<int> result;
+    int currentSum = 0;
+    int start = 0;
+    
+    for (int end = 0; end < n; end++) {
+        currentSum += arr[end];
+        // If currentSum exceeds s, remove elements from the start of the window
+        while (currentSum > s && start < end) {
+            currentSum -= arr[start];
+            start++;
+        }
+        // Check if currentSum is equal to s
+        if (currentSum == s) {
+            result.push_back(start + 1); // +1 to convert from zero-indexed to one-indexed
+            result.push_back(end + 1);
+            return result;
+        }
+    }
+    result.push_back(-1); // If no subarray found, return [-1]
+    return result;
+}
