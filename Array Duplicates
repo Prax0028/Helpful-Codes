@@ -1,0 +1,21 @@
+#Given an array arr of size n which contains elements in range from 0 to n-1, you need to find all the elements occurring more than once in the given array. 
+#Return the answer in ascending order. If no such element is found, return list containing [-1]. 
+
+#Note: Try and perform all operations within the provided array. The extra (non-constant) ) space needs to be used only for the array to be returned.
+
+def duplicates(self, n : int, arr : List[int]) -> List[int]:
+        # code here
+        count = [0]*n
+        
+        for i in range(0,n):
+            count[arr[i]] += 1
+            
+            
+        dup = [-1]
+        for i in range(0,n):
+            if count[i]>1:
+                if dup[0] == -1:
+                    dup.pop()
+                dup.append(k)
+                
+        return dup
