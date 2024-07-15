@@ -1,0 +1,11 @@
+# Given an array of size n-1 such that it only contains distinct integers in the range of 1 to n. Return the missing element.
+
+#Python
+def missingNumber(self, n, arr):
+        expected_sum = n*(n+1)/2
+        actual_sum = 0
+        
+        for i in range(0,n-1):
+            actual_sum += arr[i]
+        
+        return int(expected_sum - actual_sum)
