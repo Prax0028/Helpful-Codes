@@ -1,0 +1,21 @@
+# Counting Sort
+
+def countingSort(self,arr,n):
+        # code here
+        #arr.sort()
+        Max = max(arr)
+        Min = min(arr)
+        
+        count = [0]*(Max-Min+1)
+        
+        for i in range(0,n):
+            count[arr[i]-Min] += 1
+            
+        n = 0 
+        for i in range(0,Max-Min+1):
+            while count[i] > 0:
+                arr[n] = i + Min
+                n += 1
+                count[i] -= 1
+
+        return arr
